@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dew7lljallnbc"]
+
+[ext_resource type="Script" path="res://main_scene.gd" id="1_ggxow"]
+[ext_resource type="Texture2D" uid="uid://dqn44m1y2kuku" path="res://small_empty_room_1_8k.hdr" id="2_4t3y2"]
+[ext_resource type="Script" path="res://RightController.gd" id="2_f20p5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63ixf"]
+albedo_color = Color(1, 0.301961, 1, 1)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_wn7rh"]
+material = SubResource("StandardMaterial3D_63ixf")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u0vm7"]
+panorama = ExtResource("2_4t3y2")
+
+[sub_resource type="Sky" id="Sky_er7d7"]
+sky_material = SubResource("PanoramaSkyMaterial_u0vm7")
+
+[sub_resource type="Environment" id="Environment_oqkqj"]
+background_mode = 2
+sky = SubResource("Sky_er7d7")
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_ggxow")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.882669, 0, 0.469995, 0, 1, 0, -0.469995, 0, 0.882669, 0.762042, 0, 0)
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+tracker = &"left_hand"
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("BoxMesh_wn7rh")
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+tracker = &"right_hand"
+
+[node name="RightController" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("BoxMesh_wn7rh")
+script = ExtResource("2_f20p5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_oqkqj")
