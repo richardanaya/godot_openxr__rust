@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dew7lljallnbc"]
+[gd_scene load_steps=8 format=3 uid="uid://dew7lljallnbc"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_ggxow"]
 [ext_resource type="Texture2D" uid="uid://dqn44m1y2kuku" path="res://small_empty_room_1_8k.hdr" id="2_4t3y2"]
-[ext_resource type="Script" path="res://RightController.gd" id="2_f20p5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63ixf"]
 albedo_color = Color(1, 0.301961, 1, 1)
@@ -37,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 tracker = &"left_hand"
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+[node name="ControllerMesh" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("BoxMesh_wn7rh")
 
@@ -45,10 +44,11 @@ mesh = SubResource("BoxMesh_wn7rh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 tracker = &"right_hand"
 
-[node name="RightController" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+[node name="ControllerMesh" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("BoxMesh_wn7rh")
-script = ExtResource("2_f20p5")
+
+[node name="TriggerColorChanger" type="TriggerColorChanger" parent="XROrigin3D/RightHand"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_oqkqj")
